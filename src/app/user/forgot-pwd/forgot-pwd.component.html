@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <h3 style="color:white"  class= 'title'>SlicePay</h3>
+    <a class="nav-link active ml-auto" routerLink = '/home'>
+        <i class="fa fa-sign-in cursorPointer fa-lg" style="color:white" aria-hidden="true"></i>
+      </a>
+</nav>
+
+
+<div class="container" style="text-align: center">
+  <h3 class="p-3 loginHeading">Forgot Password?</h3>
+  <div class="row">
+    <div class="col-12 col-md-6 mx-auto shadow p-3 mb-5 mt-5 bg-white rounded">
+      <form class="addForm" #sendPwd="ngForm" (ngSubmit)="forgotPwd()">
+          <mat-form-field class="form-field">
+              <input matInput type ="email" placeholder="Email" name="email" [(ngModel)]="email" required>
+            </mat-form-field>  
+               <mat-form-field class="form-field">
+                  <input matInput placeholder="Enter New password" name="pwd" [(ngModel)]="pwd"
+                  [type]="hide ? 'password' : 'text'" required>
+                  <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>  
+                 </mat-form-field>
+        <button  class="btn btn-outline-primary ml-3" type="submit" [disabled]='!sendPwd.form.valid'>Reset Password</button>
+        &nbsp; &nbsp;
+        <button  class="btn btn-outline-danger" routerLink ="/home">Cancel</button>
+      </form>
+      <div [hidden]="!isSent" class="alert alert-success">
+        {{message}}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+    <p style="font-size: 20px; color: white">Loading...</p>
+  </ngx-spinner>

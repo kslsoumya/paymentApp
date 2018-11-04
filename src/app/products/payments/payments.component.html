@@ -1,0 +1,215 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+
+    <h3 style="color:white" class='title'>SlicePay</h3>
+    <ul class="navbar-nav ml-auto">
+
+      <li class="nav-item  ml-auto">
+        <a class="nav-link" href='http://slicepay.readme.themeanstackpro.com'>
+          <strong style="font-style: italic">Readme</strong>
+        </a></li>&nbsp;
+
+      <li class="nav-item  ml-auto">
+        <a class="nav-link active ml-auto" routerLink='/products/{{userId}}'>
+          <i class="fa fa-home cursorPointer fa-lg" style="color:white" aria-hidden="true" title='Home'></i>
+        </a>
+
+
+      </li> &nbsp;
+      <li class="nav-item  ml-auto">
+        <a class="nav-link active ml-auto">
+          <i class="fa fa-sign-out cursorPointer fa-lg" title='LogOut' (click)='logOut()' style="color:white"
+            aria-hidden="true"></i>
+        </a>
+
+
+      </li>
+
+    </ul>
+  </div>
+</nav>
+<br />
+<h3 class="mb-4 heading" *ngIf='!isPayment'>Payment Page</h3>
+<h3 class="mb-4 heading" *ngIf='isPayment'>Payment Page -- {{amount}} Rs</h3>
+<div class='container' *ngIf='!isPayment'>
+  <div class='row'>
+    <div class='col'>
+      <img src="assets/notify.png" class="rounded  img-fluid mx-auto image d-block" style="width : 50vw;">
+    </div>
+  </div>
+</div>
+
+<div class="container" *ngIf='isPayment'>
+  <div class="row" *ngIf='!isOtpPage'>
+    <div class="col-md-4 options">
+      <ul class="list-group">
+
+        <li class="list-group-item" *ngFor='let val of payOptions;let i=index;'>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox{{i+1}}" [(ngModel)]="val.checked"
+              (click)='selectPaymentOption(val.title)' (ngModelChange)='isValueChanged = true'>
+            <label class="form-check-label" for="inlineCheckbox{{i+1}}">{{val.title}}</label>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+
+    <div class="col-md-6 creditForm  mx-auto shadow bg-white rounded" style="text-align: center">
+
+
+      <form #creditCardForm='ngForm' *ngIf='isCard' (ngSubmit)='payAmount()'>
+
+
+        <div class="input-group mb-4 row">
+          <label class="col-sm-3 col-form-label" style='padding:0'>Model* </label>
+          <div class="col-sm-9">
+            <span *ngFor='let val of basicOptions;let i= index'>
+              <div class="custom-control custom-checkbox custom-control-inline">
+                <input type="checkbox" id="option{{i+1}}" class="custom-control-input" name="option{{i+1}}" [(ngModel)]="val.checked"
+                  (click)='updateBasicOptions(val.title)'>
+                <label class="custom-control-label" for="option{{i+1}}">{{val.title}}</label>
+              </div>
+            </span>
+          </div>
+        </div>
+
+        <div class="input-group mb-4 row">
+          <label class="col-sm-3 col-form-label" style='padding:0'>Card Type* </label>
+          <div class="col-sm-9">
+            <span *ngFor='let val of checkboxValues;let i= index'>
+              <div class="custom-control custom-checkbox custom-control-inline">
+                <input type="checkbox" id="check{{i+1}}" class="custom-control-input" name="checkBox{{i+1}}"
+                  [(ngModel)]="val.checked" (click)='updateSelection(val.title)'>
+                <label class="custom-control-label" for="check{{i+1}}">{{val.title}}</label>
+              </div>
+            </span>
+          </div>
+        </div>
+
+
+
+        <div class="input-group mb-4">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fa fa-credit-card" aria-hidden="true"></i>
+            </div>
+          </div>
+          <input type="text" class="form-control" [(ngModel)]="cardNumber" placeholder="Card Number" maxlength="16"
+            name='no' required>
+        </div>
+
+
+        <div class="input-group mb-4">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;
+            </div>
+          </div>
+          <input type="text" class="form-control" [(ngModel)]="name" name='cardname' placeholder="Name on the card"
+            required>
+        </div>
+
+        <div class="input-group mb-4 row ">
+
+
+          <div class='col-sm-4 mx-auto'>
+            Expiry* &nbsp;
+            <input pattern="[0-9/]" type="text" class="form-control mt-1" [(ngModel)]="expiryDate" name='exp'
+              placeholder=" MM/YYYY" maxlength="7" required>
+          </div> &nbsp;&nbsp;
+
+          <div class='col-sm-3 mx-auto'>
+            CVV* &nbsp;
+            <input class="form-control mt-1" [type]="hide ? 'password' : 'text'" [(ngModel)]="cvv" name='cvv'
+              placeholder="CVV" maxlength="3" required>
+          </div>
+        </div>
+
+        <button class="btn btn-block btn-success mb-2" type="submit">
+          <strong>Pay
+            <b> {{amount}}</b> Rupees </strong></button>
+
+      </form>
+
+
+      <form #bankForm='ngForm' (ngSubmit)="payAmount()" *ngIf='isBank' class='bForm'>
+
+        <div class="form-group row">
+          <label for="ex1" class='mx-auto'>Bank</label>
+          <input type="text" class="form-control col-sm-8  mx-auto" id="ex1" placeholder="xxxxxx" [(ngModel)]='bank'
+            name='bank' required>
+        </div>
+        <div class="form-group row">
+          <label for="ex2" class='mx-auto'>UserName</label>
+          <input type="text" class="form-control col-sm-8  mx-auto" id="ex2" placeholder="xxxxxx" [(ngModel)]='userName'
+            name='userName' required>
+        </div>
+        <div class="form-group row">
+          <label for="ex3" class='mx-auto'>Password</label>
+          <input type="password" class="form-control col-sm-8  mx-auto" id="ex3" placeholder="xxxxxx" [(ngModel)]='bankPwd'
+            name='pwd' required>
+        </div>
+        <button class='btn  btn-info' type='submit' [disabled]='!bankForm.form.valid'>
+          <strong>Pay
+            <b> {{amount}}</b> Rs.</strong>
+        </button>
+      </form>
+
+      <form #upiForm='ngForm' class='upiForm' (ngSubmit)='payAmount()' *ngIf='isUpi'>
+
+
+        <div class="form-group row">
+          <label for="exampleFormControlInput1" class='mx-auto'>Please enter existing UPI Id</label>
+          <input type="text" class="form-control col-sm-8  mx-auto" id="exampleFormControlInput1" placeholder="yourname@bank"
+            [(ngModel)]='upiId' name='upi' required>
+        </div>
+        <button class='btn  btn-warning' type='submit' [disabled]='!upiForm.form.valid'> Verify &
+          <strong>Pay
+            <b> {{amount}}</b> Rs.</strong>
+        </button>
+
+
+      </form>
+
+    </div>
+    <div class='col-md-2'></div>
+  </div>
+
+
+  <div class="row" *ngIf='isOtpPage'>
+    <div class='col-md-6  otpForm  mx-auto shadow bg-white rounded' style='text-align: center'>
+      <form #otpForm='ngForm'>
+        <div class="form-group row" *ngIf='!isOtpVerification'>
+          <label for="mobile" class='mx-auto'>Please Enter Valid Mobile Number</label><br />
+          <input type="tel" class="form-control col-sm-8  mx-auto" id="mobile" placeholder="Mobile Number" [(ngModel)]='mobileNo'
+            name='mobile' required>
+        </div>
+        <div class="form-group row" *ngIf='isOtpVerification'>
+            <label for="mobile" class='mx-auto'>Mobile Number Entered</label><br />
+            <input type="tel" class="form-control col-sm-6  mx-auto" id="mobile" placeholder="Mobile Number" [(ngModel)]='mobileNo'
+              name='mobile' required readonly>
+          </div>
+        <div class="form-group row" *ngIf='isOtpVerification'>
+          <label for="otp" class='mx-auto'>Please Enter OTP</label>
+          <input type="number" class="form-control col-sm-4  mx-auto" id="otp" placeholder="OTP" [(ngModel)]='otpSent'
+            name='otp' required>
+        </div>
+        <button class='btn  btn-success' type='submit' *ngIf='!isOtpVerification' (click)='submitMobileNo()' [disabled]='!otpForm.form.valid'>Send
+          OTP
+        </button>
+        <button class='btn  btn-success' type='submit' *ngIf='isOtpVerification' [disabled]='!otpForm.form.valid'
+          (click)='verifyOtp()'>Verify OTP
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white">Processing...</p>
+</ngx-spinner>

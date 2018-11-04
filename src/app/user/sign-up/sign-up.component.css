@@ -1,0 +1,23 @@
+.ng-valid[required], .ng-valid.required  {
+    border-left: 5px solid #42A948; /* green */
+  }
+  
+  .ng-invalid:not(form)  {
+    border-left: 5px solid #a94442; /* red */
+  }
+
+  .accountHeading {
+    font-style: italic;
+    font-weight: bold;
+    color:rgb(10, 236, 161);
+    text-align: center;    
+}
+
+.cursor {
+  cursor: pointer;
+}
+
+label {
+  color: rgb(112, 10, 207);
+
+}

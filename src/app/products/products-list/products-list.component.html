@@ -1,0 +1,84 @@
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+
+    <h3 style="color:white" class='title'>SlicePay</h3>
+    <ul class="navbar-nav ml-auto">
+
+      <li class="nav-item  ml-auto">
+        <a class="nav-link" href='http://slicepay.readme.themeanstackpro.com'>
+          <strong style="font-style: italic">Readme</strong>
+        </a></li>&nbsp;
+      <li class="nav-item  ml-auto">
+
+        <div id="ex4">
+          <i class="fa fa-shopping-cart fa-lg" aria-hidden="true" title ='Go to Cart'  (click)='goToCart()'></i><span class="badge badge-info">
+            {{cartLength}}
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+<br />
+
+<div class="container">
+  <div id="movieIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#movieIndicators" *ngFor='let item of offers;let i =index' [attr.data-slide-to]='i' [ngClass]="{active: i==0}"></li>
+
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item " *ngFor='let item of offers;let i =index' [ngClass]="{active: i==0}">
+        <img class="d-block w-100 carousel-image" src={{item.img}} alt="Offer">
+        <div class="carousel-caption  mx-auto d-none d-md-block">
+          <h5>{{item.product}}</h5>
+          <p>{{item.offer}}% Discount</p>
+        </div>
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#movieIndicators" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#movieIndicators" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+
+  <br />
+  <div class='row' style='text-align: center'>
+    <div class='col'>
+      <h4 class='prodHeading'>Products Available</h4>
+    </div>
+  </div>
+  <br />
+
+  <div class="row" infiniteScroll [infiniteScrollDistance]="2"
+   [infiniteScrollThrottle]="50" (scrolled)="onScroll()" [scrollWindow]="false"
+   style="height: 300px; overflow-y: scroll;">
+    <div class=" col-sm-12 col-md-6 " *ngFor='let item of pagedProducts'>
+      <div class="card flex-wrap ">
+        <div class="prodTitle p-3">
+          <img src={{item.image}} alt="Image" height=90; width=90;> &nbsp;&nbsp;
+          <h6 class="card-title">{{item.product}}</h6>
+        </div>
+        <div class="prodEnd p-2">
+          <p class="card-text mx-auto"> <strong>Price:</strong> {{item['price/unit(INR)']}}</p>&nbsp; &nbsp;
+          <button type='button' class="btn btn-info mx-auto" style='width:7rem;' (click)='addToCart(item)'>Add To Cart</button>
+        </div>
+        <!-- <div class="w-100"></div> -->
+      </div>
+      <br />
+
+
+
+    </div>
+    <br /> <br />
+  </div>
+
+</div>

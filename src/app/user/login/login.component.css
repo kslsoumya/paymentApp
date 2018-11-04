@@ -1,0 +1,31 @@
+.addForm {
+    text-align: center;
+    border-left: 5px #1457a0f5 solid;
+    padding-left: 1.5vw;
+    text-align: center;
+    margin-top : 8vh;
+  }
+
+  .form-field {
+  width: 100%;
+  }
+
+  .row {
+    padding-top:7vh;
+    height: 64vh;
+
+  }
+
+  .options {
+    display: inline-flex;
+  }
+  .loginHeading {
+    color: #1457a0f5;
+    font-style: italic;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+
+  .cursor {
+    cursor: pointer;
+  }

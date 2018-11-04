@@ -1,0 +1,10 @@
+.form-field {
+    width:80%;
+}
+
+.loginHeading {
+    color: rgba(235, 23, 23, 0.822);
+    font-style: italic;
+    font-weight: bold;
+    text-decoration: underline;
+  }

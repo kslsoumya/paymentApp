@@ -1,0 +1,46 @@
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="date"]:focus,
+input[type="tel"]:focus,
+input[type="number"]:focus {
+    border-color: rgba(22, 60, 230, 0.603);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(22, 60, 230, 0.403);
+  outline: 0 none;
+}
+ 
+.options {
+    margin-top: 12vh;
+}
+
+.options li {
+    cursor: pointer;
+}
+
+
+.creditForm {
+    height: 60vh;
+    margin-top: 8vh;
+    background-color: beige;
+}
+
+.upiForm {
+    margin-top: 15vh;
+    text-align: center;
+}
+
+.heading {
+    font-style: italic;
+    text-align: center;
+    font-weight: bold;
+    color: green;
+}
+.bForm {
+    text-align: center;
+}
+
+.otpForm {
+    text-align: center;
+    margin: 10vh;
+    height: 30vh;
+}
+
